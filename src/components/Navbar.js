@@ -14,8 +14,9 @@ import {
 // Importación de los componentes que se renderizan
 import Cards from "./Cards";
 import Pagar from "./Pagar";
+import PagarCoinPayments from './PagarCoinPayments';
 import Facturas from "./Facturas";
-import Guia from "./Guia";
+import Guias from "./Guias";
 import InicioSesion from "./InicioSesion";
 import Registro from './Registro';
 
@@ -41,7 +42,7 @@ function Navbar() {
                                     <Link class="nav-link" to="/tutoriales">Tutoriales</Link>
                                 </li>
                                 <li class="nav-item">
-                                    <Link class="nav-link" to="/guia">Guia</Link>
+                                    <Link class="nav-link" to="/guia">Guía</Link>
                                 </li>
                             </ul>
                         </div>
@@ -60,6 +61,10 @@ function Navbar() {
                         <Route path="/" exact>
                             <Pagar/>
                         </Route>
+                        {/*Ruta de página para pagar con CoinPayments, la cual muestra el componente de PagarCoinPayments*/} 
+                        <Route path="/CoinPayments" exact>
+                            <PagarCoinPayments/>
+                        </Route>
                         {/*Ruta de facturas, la cual muestra el componente de Facturas*/} 
                         <Route path="/facturas">
                             <Facturas/>
@@ -70,7 +75,7 @@ function Navbar() {
                         </Route>
                         {/*Ruta de guía, la cual muestra el componente de Guia*/}
                         <Route path="/guia">
-                            <Guia/>
+                            <Guias/>
                         </Route>
                         {/*Ruta de inicio de sesion, la cual muestra el componente de InicioSesion*/}
                         <Route path="/iniciosesion">

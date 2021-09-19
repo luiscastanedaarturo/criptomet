@@ -1,55 +1,35 @@
 import React from 'react'
 
+// Importación del react-router-dom
+import {
+    BrowserRouter as Router,
+    Link,
+  } from "react-router-dom";
+
 function Pagar() {
     return (
-        <div className="container justify-content-center h-100 align-items-center animate__animated animate__fadeInUp">
-
-            <div className="row justify-content-md-center">
-                <div className="col-md-auto">
-                    <h1 cla>¿Qué deseas pagar este mes?</h1>
-                </div>
-            </div>
-
-            <br/>
-            
-            <div className="row justify-content-md-center">
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <h3 className="card-title">Inscripción</h3>
+        <div className="container d-flex justify-content-center h-100 align-items-center">
+            <div className="card text-center bg-dark col-md-4 animate__animated animate__fadeInUp">
+                <img src="" alt=""/> 
+                <div className="card-body text-light"> 
+                    <h4 className="card-title ">Ventana de Pago</h4>
+                    <br/>
+                    <h6 className="card-title ">Descripción</h6>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="ej. Pago de 5 materias octubre"></input> 
+                    <br/>
+                    <h6 className="card-title ">Monto</h6>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control" placeholder="375"></input>
+                        <span class="input-group-text">USDT</span>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <h3 className="card-title">Seguro Estudiantil</h3>
-                    </div>
-                </div>
-            </div>
-
-            <br/>
-
-            <div className="row justify-content-md-center">
-                <div class="col-md-auto">
-                    <h3 className="card-title">Cantidad de materias</h3>
-                    <div>
-                        <a>1</a>
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <a>2</a>
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <a>3</a>
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <a>4</a>
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <a>5</a>
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <a>6</a>
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <a>7</a>
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                        <a>8</a>
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                    </div>
+                    <p className="text-white">El pago será realizado en Tether a través de CoinPayments. Para proceder por favor haz click en Pagar.</p>
+                    <br/>
+                    <Router>
+                        <Link to="/CoinPayments" className="btn btn-outline-secondary rounded-0" target="_blank">
+                            Pagar
+                        </Link>
+                    </Router>
                 </div>
             </div>
         </div>

@@ -2,11 +2,10 @@ import React from 'react'
 
 import "./Guias.css"
 
-function Guia({title, imageSource, url, text}) {
+function Factura({title, text}) {
     return (
         <div className="container d-flex justify-content-center h-100 align-items-center">
           <div class="card mb-3 card text-left bg-dark animate__animated animate__fadeInUp">
-            <img src={imageSource} className="img-guia" alt="..."/>
             <div class="card-body text-light">
               <h5 class="card-title">{title}</h5>
               <p class="card-text">{text}</p>
@@ -17,4 +16,4 @@ function Guia({title, imageSource, url, text}) {
     )
 }
 
-export default Guia
+export default Factura
