@@ -48,7 +48,7 @@ function Header() {
                                             <Link className="nav-link" to="/guia">Guía</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/">Cerrar Sesion</Link>
+                                            <Link className="nav-link" to="/iniciosesion">Cerrar Sesion</Link>
                                         </li>
                                     </ul>
                                 </Nav>
