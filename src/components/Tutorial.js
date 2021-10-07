@@ -13,7 +13,7 @@ function Tutorial({title, imageSource, url, text}) {
                 <p className="card-text">
                     {text} 
                 </p>
-                <a href={url} className="btn btn-outline-secondary rounded-0" target="_blank">
+                <a href={url} className="btn btn-outline-secondary rounded-0" target="_blank" rel="noreferrer">
                     Ver video
                 </a>
             </div>

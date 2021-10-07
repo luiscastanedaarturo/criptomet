@@ -33,7 +33,7 @@ function InicioSesion() {
                     </Router>
                     <br/>
                     <br/>
-                    <a className="text-white" href="#">¿Olvidaste la contraseña?</a>
+                    <a className="text-white" href="/">¿Olvidaste la contraseña?</a>
                 </div>
             </div>
         </div>
