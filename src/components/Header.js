@@ -7,12 +7,11 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link,
-    NavLink
+    Link
   } from "react-router-dom";
 
 // Importación de los componentes que se renderizan
-import Cards from "./Cards";
+import Tutoriales from "./Tutoriales";
 import Pagar from "./Pagar";
 import PagarCoinPayments from './PagarCoinPayments';
 import Facturas from "./Facturas";
@@ -20,39 +19,43 @@ import Guias from "./Guias";
 import InicioSesion from "./InicioSesion";
 import Registro from './Registro';
 
-function Navbar() {
+import { Navbar , Container, Nav } from 'react-bootstrap';
+
+function Header() {
     return (
         <div>
             <Router>
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div className="container-fluid" >
-                        <Link  className="navbar-brand" to="/">CriptoMet</Link >
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button> 
-                        <div className="collapse navbar-collapse justify-content-center" id="navbarToggleExternalContent">
-                            <ul className="navbar-nav">
-                                <li class="nav-item">
-                                    <Link class="nav-link" to="/">Pagar</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link class="nav-link" to="/facturas">Facturas</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link class="nav-link" to="/tutoriales">Tutoriales</Link>
-                                </li>
-                                <li class="nav-item">
-                                    <Link class="nav-link" to="/guia">Guía</Link>
-                                </li>
-                            </ul>
-                        </div>
-                        <ul className="navbar-nav">
-                            <li class="nav-item">
-                                <Link class="nav-link" to="/iniciosesion">Cerrar Sesión</Link>
-                            </li>
-                        </ul> 
-                    </div>
-                </nav>
+                <Navbar bg="dark" expand="lg" className="navbar-dark">
+                    <Container>
+                        <Link  className="navbar-brand" to="/">
+                        CriptoMet
+                        </Link>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Container>
+                                <Nav className="me-auto">
+                                    <ul className="navbar-nav">
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/">Pagar</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/facturas">Facturas</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/tutoriales">Tutoriales</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/guia">Guía</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/">Cerrar Sesion</Link>
+                                        </li>
+                                    </ul>
+                                </Nav>
+                            </Container>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
 
                 <div className="content">
                     {/*Rutas hacia los distintos componentes*/} 
@@ -71,7 +74,7 @@ function Navbar() {
                         </Route>
                         {/*Ruta de tutoriales, la cual muestra el componente de Tutoriales*/}
                         <Route path="/tutoriales">
-                            <Cards />
+                            <Tutoriales />
                         </Route>
                         {/*Ruta de guía, la cual muestra el componente de Guia*/}
                         <Route path="/guia">
@@ -93,4 +96,4 @@ function Navbar() {
     )
 }
 
-export default Navbar
+export default Header

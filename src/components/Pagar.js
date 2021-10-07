@@ -18,10 +18,10 @@ function Pagar() {
                     <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="ej. Pago de 5 materias octubre"></input> 
                     <br/>
                     <h6 className="card-title ">Monto</h6>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">$</span>
+                    <div className="input-group mb-3">
+                        <span className="input-group-text">$</span>
                         <input type="text" class="form-control" placeholder="375"></input>
-                        <span class="input-group-text">USDT</span>
+                        <span className="input-group-text">USDT</span>
                     </div>
                     <p className="text-white">El pago será realizado en Tether a través de CoinPayments. Para proceder por favor haz click en Pagar.</p>
                     <br/>

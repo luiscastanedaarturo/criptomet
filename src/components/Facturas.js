@@ -39,7 +39,7 @@ function Facturas() {
         <div className="container d-flex justify-content-center h-100 align-items-center">   
           <div className="container align-items-center">
             <div className="row">
-              <h1 class="text-center">Facturas</h1>
+              <h1 className="text-center">Facturas</h1>
             </div>
             <br/>
             <div className="row">

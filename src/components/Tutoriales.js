@@ -1,9 +1,9 @@
 import React from 'react'
-import Card from "./Card";
 
 import image1 from "../assets/image1.jpg"
+import Tutorial from './Tutorial';
 
-const cards = [
+const tutoriales = [
     {
         id:1,
         title:"Pagar en CriptoMet",
@@ -27,7 +27,7 @@ const cards = [
     }
 ]
 
-function Cards() {
+function Tutoriales() {
     return (
         <div className="container d-flex justify-content-center h-100 align-items-center">
             <div className="container align-items-center">
@@ -37,9 +37,9 @@ function Cards() {
                 <br/>
                 <div className="row">
                     {
-                        cards.map(card => (
-                            <div className="col-md-4" key={card.id}> 
-                                <Card title={card.title} imageSource={card.image} url={card.url} text={card.text}/>  
+                        tutoriales.map(tutorial => (
+                            <div className="col-md-4" key={tutorial.id}> 
+                                <Tutorial title={tutorial.title} imageSource={tutorial.image} url={tutorial.url} text={tutorial.text}/>  
                             </div> 
                         ))
                     } 
@@ -49,4 +49,4 @@ function Cards() {
     )
 }
 
-export default Cards
+export default Tutoriales

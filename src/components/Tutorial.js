@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import "./Cards.css"
 
-function Card({title, imageSource, url, text}) {
+function Tutorial({title, imageSource, url, text}) {
     return (
         <div className="card text-center bg-dark animate__animated animate__fadeInUp">
             <img src={imageSource} alt=""/> 
@@ -22,11 +21,4 @@ function Card({title, imageSource, url, text}) {
     )
 }
 
-Card.propTypes = {
-    title: PropTypes.string.isRequired,
-    url: PropTypes.string,
-    imageSource: PropTypes.string,
-    text: PropTypes.string
-}
-
-export default Card
+export default Tutorial
