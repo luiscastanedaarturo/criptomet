@@ -1,4 +1,6 @@
 import React from 'react'
+import { AuthProvider } from '../context/AuthContext';
+import { PrivateRoute } from './PrivateRoute';
 
 import "./Content.css"
 
@@ -24,6 +26,7 @@ import { Navbar , Container, Nav } from 'react-bootstrap';
 function Header() {
     return (
         <div>
+            <AuthProvider>
             <Router>
                 <Navbar bg="dark" expand="lg" className="navbar-dark">
                     <Container>
@@ -61,9 +64,9 @@ function Header() {
                     {/*Rutas hacia los distintos componentes*/} 
                     <Switch>
                         {/*Ruta principal, la cual muestra el componente de Pagar*/} 
-                        <Route path="/" exact>
-                            <Pagar/>
-                        </Route>
+                        <PrivateRoute path="/" exact component={Pagar}/>
+                            {/* <Pagar/>
+                        </PrivateRoute> */}
                         {/*Ruta de página para pagar con CoinPayments, la cual muestra el componente de PagarCoinPayments*/} 
                         <Route path="/CoinPayments" exact>
                             <PagarCoinPayments/>
@@ -92,6 +95,8 @@ function Header() {
                 </div>
 
             </Router> 
+            </AuthProvider>
+            
         </div>
     )
 }

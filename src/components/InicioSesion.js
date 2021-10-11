@@ -1,30 +1,55 @@
-import React from 'react'
+import React, {useState} from 'react'
+
+import { useAuth } from '../context/AuthContext';
 
 // Importación del react-router-dom
 import {
     BrowserRouter as Router,
     Link,
+    useHistory
   } from "react-router-dom";
 
 
 function InicioSesion() {
+    const {login} = useAuth();
+    const [error, setError] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+
+    const handleEmail = (e) => setEmail(e.target.value);
+    const handlePassword = (e) => setPassword(e.target.value);
+
+    const history = useHistory();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await login(email, password);
+            history.push('/')
+        } catch (error) {
+            setError('Credenciales Incorrectas');
+            setTimeout(() => setError(''), 1500);
+        }
+    }
 
     return (
         <div className="container d-flex justify-content-center h-100 align-items-center">
             <div className="card text-center bg-dark col-md-4 animate__animated animate__fadeInUp">
                 <img src="" alt=""/> 
                 <div className="card-body text-light"> 
+                {/* error */}
+                {error && <p className='error'>{error}</p>}
                     <h4 className="card-title ">Inicia Sesión</h4>
                     <br/>
                     <h6 className="card-title ">Correo</h6>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="john.doe@correo.unimet.edu.ve"></input> 
+                    <input onChange={handleEmail} type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="john.doe@correo.unimet.edu.ve"></input> 
                     <br/>
                     <h6 className="card-title ">Contraseña</h6>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="********"></input> 
+                    <input onChange={handlePassword} type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="********"></input> 
                     <br/>
                     <br/>
                     <Router>
-                        <Link to="/" className="btn btn-outline-secondary rounded-0" target="_blank">
+                        <Link onClick={handleSubmit} className="btn btn-outline-secondary rounded-0" target="_blank">
                             Iniciar Sesión
                         </Link>
                         <Link to="/registro" className="btn btn-outline-secondary rounded-0" target="_blank">
@@ -33,6 +58,7 @@ function InicioSesion() {
                     </Router>
                     <br/>
                     <br/>
+                    
                     <a className="text-white" href="/">¿Olvidaste la contraseña?</a>
                 </div>
             </div>
@@ -41,3 +67,18 @@ function InicioSesion() {
 }
 
 export default InicioSesion
+
+
+//Esto es para lo de logout
+// const [error, setError] = useState(null);
+// const {currentUser, logout} = useAuth();
+
+// const handleLogout = async () => {
+//     try {
+//         await logout();
+//     } catch (error) {
+//         setError('Server error');
+//     }
+// }
+
+// <button className='logout' onClick={handleLogout}>Log Out? {currentUser.email} </button>
