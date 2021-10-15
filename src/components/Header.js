@@ -92,11 +92,10 @@ function Header() {
                         <PrivateRoute path="/guia" component={Guias}/>
 
                         {/*Ruta de inicio de sesion, la cual muestra el componente de InicioSesion*/}
-                        <PrivateRoute path="/iniciosesion" component={InicioSesion}/>
+                        <Route path="/iniciosesion" component={InicioSesion}/>
 
                         {/*Ruta de registro, la cual muestra el componente de Registro*/}
-                        <PrivateRoute path="/registro" component={Registro}/>
-
+                        <Route path="/registro" component={Registro}/>
                     </Switch>
                 </div>
 
