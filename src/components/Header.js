@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useAuth } from '../context/AuthContext';
+import { AuthProvider } from '../context/AuthContext';
+import { PrivateRoute } from './PrivateRoute';
 
 import "./Content.css"
 
@@ -22,8 +25,21 @@ import Registro from './Registro';
 import { Navbar , Container, Nav } from 'react-bootstrap';
 
 function Header() {
+
+    // const [error, setError] = useState('');
+    // const { currentUser, logout } = useAuth();
+
+    // const handleLogout = async () => {
+    //     try {
+    //         await logout();
+    //     } catch (error) {
+    //         setError('Server error');
+    //     }
+    // }
+
     return (
         <div>
+            <AuthProvider>
             <Router>
                 <Navbar bg="dark" expand="lg" className="navbar-dark">
                     <Container>
@@ -61,37 +77,32 @@ function Header() {
                     {/*Rutas hacia los distintos componentes*/} 
                     <Switch>
                         {/*Ruta principal, la cual muestra el componente de Pagar*/} 
-                        <Route path="/" exact>
-                            <Pagar/>
-                        </Route>
+                        <PrivateRoute path="/" exact component={Pagar}/>
+                        
                         {/*Ruta de página para pagar con CoinPayments, la cual muestra el componente de PagarCoinPayments*/} 
-                        <Route path="/CoinPayments" exact>
-                            <PagarCoinPayments/>
-                        </Route>
+                        <PrivateRoute path="/CoinPayments" exact component={PagarCoinPayments}/>
+                        
                         {/*Ruta de facturas, la cual muestra el componente de Facturas*/} 
-                        <Route path="/facturas">
-                            <Facturas/>
-                        </Route>
+                        <PrivateRoute path="/facturas" component={Facturas}/>
+                        
                         {/*Ruta de tutoriales, la cual muestra el componente de Tutoriales*/}
-                        <Route path="/tutoriales">
-                            <Tutoriales />
-                        </Route>
+                        <PrivateRoute  path="/tutoriales" component={Tutoriales}/>
+                        
                         {/*Ruta de guía, la cual muestra el componente de Guia*/}
-                        <Route path="/guia">
-                            <Guias/>
-                        </Route>
+                        <PrivateRoute path="/guia" component={Guias}/>
+
                         {/*Ruta de inicio de sesion, la cual muestra el componente de InicioSesion*/}
-                        <Route path="/iniciosesion">
-                            <InicioSesion/>
-                        </Route>
+                        <PrivateRoute path="/iniciosesion" component={InicioSesion}/>
+
                         {/*Ruta de registro, la cual muestra el componente de Registro*/}
-                        <Route path="/registro">
-                            <Registro/>
-                        </Route>
+                        <PrivateRoute path="/registro" component={Registro}/>
+
                     </Switch>
                 </div>
 
             </Router> 
+            </AuthProvider>
+            
         </div>
     )
 }
