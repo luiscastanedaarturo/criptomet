@@ -42,6 +42,7 @@ function Facturas() {
               <h1 className="text-center">Facturas</h1>
             </div>
             <br/>
+            <br/>
             <div className="row">
               {
                   facturas.map(factura => (

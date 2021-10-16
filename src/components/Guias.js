@@ -56,6 +56,7 @@ function Guias() {
                     <h1 className="text-center">Guía</h1>
                 </div>
                 <br/>
+                <br/>
                 <div className="row">
                     {
                         guias.map(guia => (

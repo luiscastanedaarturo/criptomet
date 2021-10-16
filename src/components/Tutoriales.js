@@ -35,6 +35,7 @@ function Tutoriales() {
                     <h1 class="text-center">Tutoriales</h1>
                 </div>
                 <br/>
+                <br/>
                 <div className="row">
                     {
                         tutoriales.map(tutorial => (

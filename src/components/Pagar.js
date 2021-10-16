@@ -20,7 +20,13 @@ function Pagar() {
             <div className="card text-center bg-dark col-md-4 animate__animated animate__fadeInUp">
                 <img src="" alt=""/> 
                 <div className="card-body text-light"> 
-                    <h4 className="card-title ">Ventana de Pago</h4>
+                    <h4 className="card-title ">Ventana de pago</h4>
+                    <br/>
+                    <h6 className="card-title ">Nombre y Apellido</h6>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Ejemplo: John Doe"></input> 
+                    <br/>
+                    <h6 className="card-title ">Cédula</h6>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Ejemplo: 27.000.000"></input> 
                     <br/>
                     <h6 className="card-title ">Descripción</h6>
                     <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Ejemplo: 5 materias, mes de octubre"></input> 
@@ -31,7 +37,7 @@ function Pagar() {
                         <input type="text" class="form-control" placeholder="Ejemplo: 375"></input>
                         <span className="input-group-text">USDT</span>
                     </div>
-                    <p className="text-white">Para proceder por favor haz click en Pagar</p>
+                    <p className="text-white">Para proceder por favor haz click en pagar</p>
                     <Router>
                         <Link to="/CoinPayments" className="btn btn-outline-secondary rounded-0" target="_blank">
                             Pagar
