@@ -17,13 +17,6 @@ const tutoriales = [
         image: image1,
         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
         text: "En este tutorial aprenderás a utilizar CoinPayments"
-    },
-    {
-        id:3,
-        title:"Visualizar las facturas",
-        image: image1,
-        url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-        text: "En este tutorial aprenderás a visualizar tus facturas de CriptoMet"
     }
 ]
 
@@ -39,7 +32,7 @@ function Tutoriales() {
                 <div className="row">
                     {
                         tutoriales.map(tutorial => (
-                            <div className="col-md-4" key={tutorial.id}> 
+                            <div className="col-md-6" key={tutorial.id}> 
                                 <Tutorial title={tutorial.title} imageSource={tutorial.image} url={tutorial.url} text={tutorial.text}/>  
                             </div> 
                         ))
