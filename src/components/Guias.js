@@ -5,6 +5,8 @@ import articulo1 from "../assets/Banner 1 CriptoMet.jpg"
 import articulo2 from "../assets/Banner 2 CriptoMet.jpg"
 import articulo3 from "../assets/Banner 3 CriptoMet.jpg"
 import articulo4 from "../assets/Banner 4 CriptoMet.jpg"
+import articulo5 from "../assets/Banner 5 CriptoMet.jpg"
+import articulo6 from "../assets/Banner 6 CriptoMet.jpg"
 
 const guias = [
     {
@@ -41,18 +43,18 @@ const guias = [
     },
     {
         id:5,
-        title:"¿Qué son las criptomonedas?",
-        image: articulo2,
+        title:"Blockchain",
+        image: articulo5,
         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-        text: "Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way. In the example below, we remove the grid gutters with .g-0 and use .col-md-* classes to make the card horizontal at the md breakpoint. Further adjustments may be needed depending on your card content.",
+        text:  "La palabra Blockchain en español significa Cadena de Bloques. Básicamente es una base de datos o registro público que puede ser compartido por cualquier cantidad de usuarios en modo peer-to-peer (P2P o red de pares) y que permite el almacenamiento de la información que se maneja dentro de ella de forma inmutable y organizada. Cada máquina que descarga el software contará con una replica exacta de la cadena de bloques, asegurando así que el sistema sea invulnerable a hackeos, ya que, cada una de las máquinas debe validar la información de cada transacción. El Blockchain ha permitido la creación de las criptomonedas, activo digital que se utiliza para transaccionar de forma rápida y segura desde cualquier lugar del mundo que cuente con conexión a la red.",
         fecha: "21 de Octubre del 2021"
     },
     {
         id:6,
-        title:"Blockchain",
-        image: articulo2,
+        title:"Criptomonedas",
+        image: articulo6,
         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-        text: "Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way. In the example below, we remove the grid gutters with .g-0 and use .col-md-* classes to make the card horizontal at the md breakpoint. Further adjustments may be needed depending on your card content.",
+        text: "Las criptomonedas son simplemente monedas digitales, las cuales forman parte del dinero electrónico. Estas pueden utilizarse para comprar bienes y servicios de forma rápida, fácil y segura gracias a su sistema de cifrado, el cual garantiza una total integridad de las transacciones. Todos los días surgen nuevas criptomonedas, pero actualmente las más aceptadas a nivel global con el Bitcoin, el Ether, el BNB y el Tether; siendo esta última una representación del valor del dólar americano pero en forma de criptoactivo",
         fecha: "25 de Octubre del 2021"
     }
 ]

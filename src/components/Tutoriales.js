@@ -1,20 +1,21 @@
 import React from 'react'
 
-import image1 from "../assets/image1.jpg"
+import tutorial1 from "../assets/Tutorial 1.jpg"
+import tutorial2 from "../assets/Tutorial 2.jpg"
 import Tutorial from './Tutorial';
 
 const tutoriales = [
     {
         id:1,
         title:"Pagar en CriptoMet",
-        image: image1,
+        image: tutorial1,
         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
         text: "En este tutorial aprenderás a realizar un pago con la plataforma de CriptoMet"
     },
     {
         id:2,
         title:"Utilizar CoinPayments",
-        image: image1,
+        image: tutorial2,
         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
         text: "En este tutorial aprenderás a utilizar CoinPayments"
     }
