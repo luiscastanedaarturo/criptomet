@@ -94,7 +94,7 @@ function Facturas() {
               {
                   facturas.map(factura => (
                       <div className="row" key={factura.id}> 
-                          <Factura title={factura.monto} text={factura.descripcion}/>  
+                          <Factura title={factura.monto} text={factura.descripcion} fecha={factura.fecha} nombre={factura.nombre} cedula={factura.cedula}/>  
                       </div> 
                   ))
               } 
