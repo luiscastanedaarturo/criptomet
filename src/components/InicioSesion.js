@@ -1,4 +1,7 @@
 import React, {useState} from 'react'
+import {getAuth, sendPasswordResetEmail} from 'firebase/auth';
+import { auth, db } from '../firebase';
+import firebase from 'firebase/compat/app'
 
 import { useAuth } from '../context/AuthContext';
 
@@ -25,12 +28,27 @@ function InicioSesion() {
         e.preventDefault();
         try {
             await login(email, password);
+
             history.push('/')
         } catch (error) {
             setError('Credenciales Incorrectas');
             setTimeout(() => setError(''), 1500);
         }
     }
+
+    const handleForgotPassword = (e) => {
+        const auth = getAuth();
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+            // Password reset email sent!
+            alert("Correo enviado exitosamente");
+            
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            alert(errorMessage);
+        });
+    };
 
     return (
         <div className="container d-flex justify-content-center h-100 align-items-center">
@@ -59,13 +77,14 @@ function InicioSesion() {
                     <br/>
                     <br/>
                     
-                    <a className="text-white" href="/">¿Olvidaste la contraseña?</a>
+                    <a className="text-white" onClickCapture={handleForgotPassword}>¿Olvidaste la contraseña?</a>
                 </div>
             </div>
         </div>
     )
 }
 
+// href="/"
 export default InicioSesion
 
 

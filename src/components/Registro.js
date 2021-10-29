@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {getAuth, sendEmailVerification} from 'firebase/auth';
 
 import { useAuth } from '../context/AuthContext';
 
@@ -23,20 +24,39 @@ function Registro() {
     const handleEmail = (e) => setEmail(e.target.value);
     const handlePassword = (e) => setPassword(e.target.value);
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // if (password !== confirmPassword) {
-            // setError('Contraseñas no coinciden');
-            // setTimeout(() => setError(''), 1500);
-        // } else {
+        let sePuede = 0;
+        if (email.includes("@correo.unimet.edu.ve")) {
             try {
-                signup(email, password);
-                history.push('/');
+                //Signup
+                await signup(email, password);
+                sePuede = 1;
             } catch (error) {
-                setError('Server Error');
+                setError('Error Server');
+                setTimeout(() => setError(''), 1500);
+                sePuede = 0;
+            }
+
+            //Email Verification
+            if (sePuede == 1) {
+                const auth = getAuth();
+                await sendEmailVerification(auth.currentUser)
+                    .then(() => {
+                    // Email verification sent!
+                    alert('Email de confirmación enviado. Por favor, verifica tu cuenta para iniciar sesión');
+                });
+
+                history.push('/');
+            } else {
+                setError('Error de verificación');
                 setTimeout(() => setError(''), 1500);
             }
-        // }
+            
+            
+        } else {
+            alert("El email debe ser una dirección correspondiente a la Universidad Metropolitana");
+        }
     }
 
     return (

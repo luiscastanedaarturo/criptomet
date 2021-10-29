@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useAuth } from '../context/AuthContext';
+import {getAuth} from 'firebase/auth';
 import { AuthProvider } from '../context/AuthContext';
 import { PrivateRoute } from './PrivateRoute';
 
@@ -26,16 +27,18 @@ import { Navbar , Container, Nav } from 'react-bootstrap';
 
 function Header() {
 
-    // const [error, setError] = useState('');
+    const [error, setError] = useState('');
     // const { currentUser, logout } = useAuth();
 
-    // const handleLogout = async () => {
-    //     try {
-    //         await logout();
-    //     } catch (error) {
-    //         setError('Server error');
-    //     }
-    // }
+    const auth = getAuth();
+    const handleLogout = async () => {
+        try {
+            await auth.signOut();
+            alert('Hola');
+        } catch (error) {
+            setError('Server error');
+        }
+    }
 
     return (
         <div>
@@ -64,7 +67,7 @@ function Header() {
                                             <Link className="nav-link" to="/guia">Guía</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/iniciosesion">Cerrar Sesion</Link>
+                                            <Link onClick={handleLogout} className="nav-link" to="/iniciosesion">Cerrar Sesion</Link>
                                         </li>
                                     </ul>
                                 </Nav>
