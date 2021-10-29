@@ -34,7 +34,6 @@ function Header() {
     const handleLogout = async () => {
         try {
             await auth.signOut();
-            alert('Hola');
         } catch (error) {
             setError('Server error');
         }
