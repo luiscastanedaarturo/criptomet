@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {getAuth, sendPasswordResetEmail} from 'firebase/auth';
 import { auth, db } from '../firebase';
 import firebase from 'firebase/compat/app'
+import { getAnalytics, setUserProperties } from "firebase/analytics";
 
 import { useAuth } from '../context/AuthContext';
 
@@ -28,7 +29,6 @@ function InicioSesion() {
         e.preventDefault();
         try {
             await login(email, password);
-
             history.push('/')
         } catch (error) {
             setError('Credenciales Incorrectas');

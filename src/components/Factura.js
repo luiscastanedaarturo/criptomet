@@ -23,8 +23,18 @@ function Factura({title, text, fecha, nombre, cedula}) {
 
               <div className="row">
                 <h6 className="card-text col"><small className="text-muted">Fecha: {fecha}</small></h6>
+                <div className='col'>
+                  <div className='row'>
+                      <div className="col-md-2"></div>
+                      <div className="col-md-2"></div>
+                      <div className="col-md-2"></div>
+                      <div className="col-md-2"></div>
+                      <div className="col-md-1"></div>
+                      <div className="btn btn-outline-secondary rounded-0 col-md-2">X</div>
+                      <div className="col-md-1"></div>
+                  </div>
+                </div>
               </div>
-
               
             </div>
           </div>

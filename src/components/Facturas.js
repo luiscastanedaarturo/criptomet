@@ -5,104 +5,244 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import firebase from 'firebase/compat/app';
 import axios from 'axios';
 
-// const facturas = [
+// const facturass = [
 //     {
+//         monto:375,
 //         id:1,
-//         title:"Pagar en CriptoMet",
-//         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-//         text: "Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way. In the example below, we remove the grid gutters with .g-0 and use .col-md-* classes to make the card horizontal at the md breakpoint. Further adjustments may be needed depending on your card content."
-//     },
-//     {
-//         id:2,
-//         title:"Utilizar CoinPayments",
-//         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-//         text: "Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way. In the example below, we remove the grid gutters with .g-0 and use .col-md-* classes to make the card horizontal at the md breakpoint. Further adjustments may be needed depending on your card content."
-//     },
-//     {
-//         id:3,
-//         title:"Utilizar CoinPayments",
-//         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-//         text: "Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way. In the example below, we remove the grid gutters with .g-0 and use .col-md-* classes to make the card horizontal at the md breakpoint. Further adjustments may be needed depending on your card content."
-//     },
-//     {
-//         id:4,
-//         title:"Utilizar CoinPayments",
-//         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-//         text: "Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way. In the example below, we remove the grid gutters with .g-0 and use .col-md-* classes to make the card horizontal at the md breakpoint. Further adjustments may be needed depending on your card content."
-//     },
-//     {
-//         id:5,
-//         title:"Utilizar CoinPayments",
-//         url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-//         text: "Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way. In the example below, we remove the grid gutters with .g-0 and use .col-md-* classes to make the card horizontal at the md breakpoint. Further adjustments may be needed depending on your card content."
-//     },
+//         nombre:"Edward Pizzurro",
+//         cedula: "27545164",
+//         fecha: "2021/10/28",
+//         text: "Pago 5 materias noviembre 2021"
+//     }
 // ]
 
 function Facturas() {
 
     const [facturas, setFacturas] = useState([]);
     const [time_created, setTimeCreated] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
 
     const getLinks = async () => {
 
-        const q = query(collection(db, "facturas"), where("authorId", "==", firebase.auth().currentUser.uid));
+        if (firebase.auth().currentUser.email=="admin@correo.unimet.edu.ve") {
+            
+            const q = query(collection(db, "facturas"));
+            const querySnapshot = await getDocs(q);
+            const docs = [];
+            querySnapshot.forEach((doc) => {
+                docs.push({...doc.data(), id:doc.id});
+            });
+            setFacturas(docs);
+            
+        } else {
+            const q = query(collection(db, "facturas"), where("authorId", "==", firebase.auth().currentUser.uid));
+            const querySnapshot = await getDocs(q);
+            const docs = [];
+            querySnapshot.forEach((doc) => {
+                docs.push({...doc.data(), id:doc.id});
+            });
+            setFacturas(docs);
+        }
+    };
 
-        const querySnapshot = await getDocs(q);
-        const docs = [];
-        querySnapshot.forEach((doc) => {
-            docs.push({...doc.data(), id:doc.id});
+    const handleDelete = async (id) => {
+        if (window.confirm('Estas seguro que deseas eliminar esta factura?')) {
+            await db.collection('facturas').doc(id).delete();
+            getLinks();
+        }
+    }
+    
+    const facturasFiltradas = (facturas) =>{
+        const ff = facturas.filter((factura) => {
+            if (searchTerm == "") {
+                return factura
+            }
+            //AQUI SE PONE POR LO QUE QUIERES FILTRAR
+            if (factura.fecha.toLowerCase().includes(searchTerm.toLowerCase())) {
+                return factura
+            }
+        })
+        return ff
+    }
+
+    const downloadTxtFile = () => {
+
+        const element = document.createElement("a");
+
+        const stringData = facturasFiltradas(facturas).reduce((result, item) => {
+            return `${result}Nombre:${item.nombre},CI:${item.cedula},Monto:${item.monto},Fecha:${item.fecha};\n`
+          }, "")
+
+        const file = new Blob([stringData], {
+          type: "text/plain"
         });
-        setFacturas(docs);
+        element.href = URL.createObjectURL(file);
+        element.download = "myFile.txt";
+        document.body.appendChild(element);
+        element.click();
     };
 
-    const handleClick = () => {
-        console.log(this.time_created);
-    };
 
+    var seleccion = 2;
+    function settSeleccion(number) {
+        seleccion = number
+        console.log(seleccion);
+    }
 
     useEffect(() => {
 
-        const article = { 'version': '1',
-            'key':'c534692c418b595d36d6cb8940fecf680ded6bb29be733b265fa54f378df5f25',
-            'cmd':'get_tx_info',
-            'txid':'CPFJ3AVUFQOWOYWQPMYKDNICWX',
-            // 'format':'json'
-        };
-        const headers = { 
-            'mode':'non-cors',
-            // 'Access-Control-Allow-Origin': 'http://localhost:3000',
-            // 'Access-Control-Allow-Methods': 'POST',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'HMAC':'b07dfb601e5e3cea93a3d3abb14d5488ee96e248aad00fc87d15ce47bdd7cfeb173e362fb3fc8be21df2876df5282c26d73e4393eedb24e4b972baccfa3739eb'
-        };
-        axios.post('https://www.coinpayments.net/api.php', article, { headers })
-            .then(response => console.log(response));
+        // const article = { 'version': '1',
+        //     'key':'c534692c418b595d36d6cb8940fecf680ded6bb29be733b265fa54f378df5f25',
+        //     'cmd':'get_tx_info',
+        //     'txid':'CPFJ1MNABUVQACBVTRSQBBJUFY'
+        // };
+        // const headers = { 
+        //     // 'mode':'non-cors',
+        //     // // 'Access-Control-Allow-Origin': 'http://localhost:3000',
+        //     // // 'Access-Control-Allow-Methods': 'POST',
+        //     'Content-Type': 'application/x-www-form-urlencoded',
+        //     'HMAC':'7794db247500cece46e33d9f3565f3d325b8846c4b28b02f387b9e8d0cccea57c107ece9cc07d70ec5235726d0d78d809a04f0ad88f9bfaaac13a6c0802d1d30'
+        // };
+        // axios.post('https://www.coinpayments.net/api.php', article, { headers })
+        //     .then(response => console.log(response));
 
 //this.setTimeCreated({ time_created: response.data.time_created })
         getLinks();
     }, []);
 
-    return (
-        <div className="container d-flex justify-content-center h-100 align-items-center">   
-          <div className="container align-items-center">
-            <div className="row">
-              <h1 className="text-center">Facturas</h1>
+    
+
+    if (firebase.auth().currentUser.email=="admin@correo.unimet.edu.ve") {
+        return (
+            //ES ADMIN
+            <div className="container d-flex justify-content-center h-100 align-items-center">   
+            <div className="container align-items-center">
+                <div className="row">
+                <h1 className="text-center">Facturas</h1>
+                </div>
+                <br/>
+                <br/>
+                <div className='row'>
+                    <input 
+                        type='text'
+                        placeholder='nombre'
+                        onChange={(event) => {
+                            setSearchTerm(event.target.value);
+                        }}
+                    />
+                </div>
+
+                <div className='row'>
+                    <button onClick={()=>settSeleccion(1)}>Nombre</button>
+                    <button onClick={()=>settSeleccion(2)}>Cedula</button>
+                    <button onClick={()=>settSeleccion(3)}>Monto</button>
+                    <button onClick={()=>settSeleccion(4)}>Fecha</button>
+                </div>
+                <br/>
+                <br/> 
+                <div className="row">
+                {
+                    facturasFiltradas(facturas).map((factura) => {
+                        return(
+                        <div className="container d-flex justify-content-center h-100 align-items-center">
+                            <div className="row" key={factura.id}> 
+                                <div className="col-md-11"> 
+                                    <Factura title={factura.monto} text={factura.descripcion} fecha={factura.fecha} nombre={factura.nombre} cedula={factura.cedula}/> 
+                                </div> 
+                                <div className="col-md-1"> 
+                                    <div onClick={downloadTxtFile} className="btn btn-outline-primary bg-dark rounded-0 text-light">x</div>  
+                                </div> 
+                            </div> 
+                        </div>
+                        );
+                    })
+                } 
+                </div>
             </div>
-            <br/>
-            <br/>
-            <div className="row">
-              {
-                  facturas.map(factura => (
-                      <div className="row" key={factura.id}> 
-                          <Factura title={factura.monto} text={factura.descripcion} fecha={factura.fecha} nombre={factura.nombre} cedula={factura.cedula}/>  
-                      </div> 
-                  ))
-              } 
             </div>
-            <button onClick={handleClick}>PRESS ME</button>
-          </div>
-        </div>
-    )
+        )
+    } else {
+
+        //NO ES ADMIN
+        return (
+            <div className="container d-flex justify-content-center h-100 align-items-center">   
+              <div className="container align-items-center">
+                <div className="row">
+                  <h1 className="text-center">Facturas</h1>
+                </div>
+                <br/>
+                <br/>
+                <div className="row">
+                  {
+                      facturas.map(factura => (
+                          <div className="container d-flex justify-content-center h-100 align-items-center">
+                            <div className="row" key={factura.id}> 
+                                <div className="col-md-11"> 
+                                    <Factura title={factura.monto} text={factura.descripcion} fecha={factura.fecha} nombre={factura.nombre} cedula={factura.cedula}/> 
+                                </div> 
+                                <div className="col-md-1"> 
+                                    <div onClick={() => handleDelete(factura.id)} className="btn btn-outline-primary bg-dark rounded-0 text-light">x</div>  
+                                </div> 
+                            </div> 
+                          </div>
+                      ))
+                  } 
+                </div>
+              </div>
+            </div>
+        )
+    }
 }
 
 export default Facturas
+
+
+
+// if (seleccion==1) {
+//     if (factura.cedula.toLowerCase().includes(searchTerm.toLowerCase())) {
+//         return factura
+//     }
+// }
+// else if (seleccion==2) {
+//     if (factura.cedula.toLowerCase().includes(searchTerm.toLowerCase())) {
+//         return factura
+//     }
+// }
+// else if (seleccion==3) {
+//     if (factura.monto.toLowerCase().includes(searchTerm.toLowerCase())) {
+//         return factura
+//     }
+// }
+// else {
+//     if (factura.fecha.toLowerCase().includes(searchTerm.toLowerCase())) {
+//         return factura
+//     }
+// }
+
+
+
+
+// facturas.filter((factura) => {
+//     if (searchTerm == "") {
+//         return factura
+//         //AQUI SE PONE POR LO QUE SE QUIERE FILTRAR "factura.loQUeSeQuiereFiltrar"
+//     }
+
+//     if (factura.cedula.toLowerCase().includes(searchTerm.toLowerCase())) {
+//         return factura
+//     }
+
+// }).map((factura) => {
+//     return(
+//     <div className="container d-flex justify-content-center h-100 align-items-center">
+//         <div className="row" key={factura.id}> 
+//             <div className="col-md-11"> 
+//                 <Factura title={factura.monto} text={factura.descripcion} fecha={factura.fecha} nombre={factura.nombre} cedula={factura.cedula}/> 
+//             </div> 
+//             <div className="col-md-1"> 
+//                 <div onClick={downloadTxtFile} className="btn btn-outline-primary bg-dark rounded-0 text-light">x</div>  
+//             </div> 
+//         </div> 
+//     </div>
+//     );
+// })

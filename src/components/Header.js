@@ -22,6 +22,7 @@ import Facturas from "./Facturas";
 import Guias from "./Guias";
 import InicioSesion from "./InicioSesion";
 import Registro from './Registro';
+import firebase from 'firebase/compat/app';
 
 import { Navbar , Container, Nav } from 'react-bootstrap';
 
@@ -38,6 +39,61 @@ function Header() {
             setError('Server error');
         }
     }
+
+    // if (firebase.auth().currentUser.email=="admin@correo.unimet.edu.ve") {
+        
+    //     return (
+    //         <div>
+    //             <AuthProvider>
+    //             <Router>
+    //                 <Navbar bg="dark" expand="lg" className="navbar-dark">
+    //                     <Container>
+    //                         <Link  className="navbar-brand" to="/">
+    //                         CriptoMet
+    //                         </Link>
+    //                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    //                         <Navbar.Collapse id="basic-navbar-nav">
+    //                             <Container>
+    //                                 <Nav className="me-auto">
+    //                                     <ul className="navbar-nav">
+    //                                         <li className="nav-item">
+    //                                             <Link className="nav-link" to="/facturas">Facturas</Link>
+    //                                         </li>
+    //                                         <li className="nav-item">
+    //                                             <Link onClick={handleLogout} className="nav-link" to="/iniciosesion">Cerrar Sesion</Link>
+    //                                         </li>
+    //                                     </ul>
+    //                                 </Nav>
+    //                             </Container>
+    //                         </Navbar.Collapse>
+    //                     </Container>
+    //                 </Navbar>
+    
+    //                 <div className="content">
+    //                     {/*Rutas hacia los distintos componentes*/} 
+    //                     <Switch>
+
+    //                         {/*Ruta principal, la cual muestra el componente de Facturas*/} 
+    //                         <PrivateRoute path="/" exact component={Facturas}/>
+
+    //                         {/*Ruta de facturas, la cual muestra el componente de Facturas*/} 
+    //                         <PrivateRoute path="/facturas" component={Facturas}/>
+    
+    //                         {/*Ruta de inicio de sesion, la cual muestra el componente de InicioSesion*/}
+    //                         <Route path="/iniciosesion" component={InicioSesion}/>
+    
+    //                         {/*Ruta de registro, la cual muestra el componente de Registro*/}
+    //                         <Route path="/registro" component={Registro}/>
+    //                     </Switch>
+    //                 </div>
+    
+    //             </Router> 
+    //             </AuthProvider>
+                
+    //         </div>
+    //     )
+        
+    // } 
 
     return (
         <div>

@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { getAnalytics } from "firebase/analytics";
 
 // const app = firebase.initializeApp({
 //   apiKey: "AIzaSyBwECstANqjrD7TndaIyrUsxjAbcmeR8bI",
@@ -23,5 +24,6 @@ var firebaseConfig = {
 const fb = firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const db = fb.firestore();
+const analytics = getAnalytics(fb);
 
 // export default app;

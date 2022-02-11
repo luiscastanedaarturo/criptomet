@@ -9,16 +9,16 @@ const tutoriales = [
         id:1,
         title:"Pagar en CriptoMet",
         image: tutorial1,
-        url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-        text: "En este tutorial aprenderás a realizar un pago con la plataforma de CriptoMet"
-    },
-    {
-        id:2,
-        title:"Utilizar CoinPayments",
-        image: tutorial2,
-        url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
-        text: "En este tutorial aprenderás a utilizar CoinPayments"
+        url: "https://youtu.be/3RFLQ4LA6Vk",
+        text: "Aprende a realizar un pago con CriptoMet"
     }
+    // {
+    //     id:2,
+    //     title:"Utilizar CoinPayments",
+    //     image: tutorial2,
+    //     url: "https://www.youtube.com/watch?v=1_DXtP0XyDw&list=LL&index=1&t=388s",
+    //     text: "Aprende a utilizar CoinPayments"
+    // }
 ]
 
 function Tutoriales() {
@@ -33,9 +33,13 @@ function Tutoriales() {
                 <div className="row">
                     {
                         tutoriales.map(tutorial => (
+                            <div className="row">
+                            <div className="col-md-3"></div>
                             <div className="col-md-6" key={tutorial.id}> 
                                 <Tutorial title={tutorial.title} imageSource={tutorial.image} url={tutorial.url} text={tutorial.text}/>  
                             </div> 
+                            <div className="col-md-3"></div>
+                            </div>
                         ))
                     } 
                 </div>
