@@ -3,7 +3,6 @@ import Factura from "./Factura";
 import { db } from '../firebase';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import firebase from 'firebase/compat/app';
-import axios from 'axios';
 
 // const facturass = [
 //     {
@@ -58,7 +57,7 @@ function Facturas() {
                 return factura
             }
             //AQUI SE PONE POR LO QUE QUIERES FILTRAR
-            if (factura.fecha.toLowerCase().includes(searchTerm.toLowerCase())) {
+            if (factura.nombre.toLowerCase().includes(searchTerm.toLowerCase())) {
                 return factura
             }
         })
@@ -115,50 +114,75 @@ function Facturas() {
     if (firebase.auth().currentUser.email=="admin@correo.unimet.edu.ve") {
         return (
             //ES ADMIN
-            <div className="container d-flex justify-content-center h-100 align-items-center">   
-            <div className="container align-items-center">
-                <div className="row">
-                <h1 className="text-center">Facturas</h1>
-                </div>
-                <br/>
-                <br/>
-                <div className='row'>
-                    <input 
-                        type='text'
-                        placeholder='nombre'
-                        onChange={(event) => {
-                            setSearchTerm(event.target.value);
-                        }}
-                    />
-                </div>
+            <div className="container d-flex justify-content-center h-100 align-items-center">  
+                <div className="container align-items-center">
+                    <div className="row">
+                        <h1 className="text-center">Facturas</h1>
+                    </div>
+                    <br/>
+                    <br/>
 
-                <div className='row'>
-                    <button onClick={()=>settSeleccion(1)}>Nombre</button>
-                    <button onClick={()=>settSeleccion(2)}>Cedula</button>
-                    <button onClick={()=>settSeleccion(3)}>Monto</button>
-                    <button onClick={()=>settSeleccion(4)}>Fecha</button>
-                </div>
-                <br/>
-                <br/> 
-                <div className="row">
-                {
-                    facturasFiltradas(facturas).map((factura) => {
-                        return(
-                        <div className="container d-flex justify-content-center h-100 align-items-center">
-                            <div className="row" key={factura.id}> 
-                                <div className="col-md-11"> 
-                                    <Factura title={factura.monto} text={factura.descripcion} fecha={factura.fecha} nombre={factura.nombre} cedula={factura.cedula}/> 
-                                </div> 
-                                <div className="col-md-1"> 
-                                    <div onClick={downloadTxtFile} className="btn btn-outline-primary bg-dark rounded-0 text-light">x</div>  
-                                </div> 
-                            </div> 
+                    <div className="row">
+
+                        <div className="card mb-3 col-md-8 bg-dark animate__animated animate__fadeInUp container">
+
+                            <div className="row">
+                                <h1 className="text-center card-body text-light">Filtrar</h1>
+                            </div>
+
+                            <div className='row'>
+                                <input 
+                                    type='text'
+                                    placeholder='filtro'
+                                    onChange={(event) => {
+                                        setSearchTerm(event.target.value);
+                                    }}
+                                />
+                            </div>
+
+                            <div className='row'>
+                                <div className="col-md-3 d-flex">
+                                <button onClick={()=>settSeleccion(1)} className="btn btn-outline rounded-0 text-center card-body text-light">Nombre</button>
+                                </div>
+                                <div className="col-md-3 d-flex">
+                                <button onClick={()=>settSeleccion(2)} className="btn rounded-0 text-center card-body text-light">Cédula</button>
+                                </div>
+                                <div className="col-md-3 d-flex">
+                                <button onClick={()=>settSeleccion(3)} className="btn rounded-0 text-center card-body text-light">Monto</button>
+                                </div>
+                                <div className="col-md-3 d-flex">
+                                <button onClick={()=>settSeleccion(4)} className="btn rounded-0 text-center card-body text-light">Fecha</button>
+                                </div>
+                            </div>
                         </div>
-                        );
-                    })
-                } 
+
+                        <div className="card mb-3 col-md-8 bg-dark animate__animated animate__fadeInUp container">
+                            <div className='row'>
+                                <div onClick={downloadTxtFile} className="btn bg-dark rounded-0 text-light">Descargar facturas</div>  
+                            </div>
+                        </div>
+
+                    </div>
+                    <br/> 
+                    <div className="row">
+                    {
+                        facturasFiltradas(facturas).map((factura) => {
+                            return(
+                            <div className="container d-flex justify-content-center h-100 align-items-center">
+                                <div className="row" key={factura.id}> 
+                                    <div className="col-md-11"> 
+                                        <Factura title={factura.monto} text={factura.descripcion} fecha={factura.fecha} nombre={factura.nombre} cedula={factura.cedula}/> 
+                                    </div> 
+                                    <div className="col-md-1"> 
+                                        <div onClick={downloadTxtFile} className="btn bg-dark rounded-5 text-light">x</div>  
+                                    </div> 
+                                </div> 
+                            </div>
+                            );
+                        })
+                    } 
+                    </div>
                 </div>
-            </div>
             </div>
         )
     } else {
