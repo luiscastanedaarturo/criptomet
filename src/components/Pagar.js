@@ -10,7 +10,6 @@ import {
   } from "react-router-dom";
 
 function Pagar() {
-
     var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
     var regCedula = /^\s*[+-]?(\d+|\.\d+|\d+\.\d+|\d+\.)(e[+-]?\d+)?\s*$/;
     var regDescripcion = /^\s*$/;

@@ -4,27 +4,25 @@ import { db } from '../firebase';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import firebase from 'firebase/compat/app';
 
-// const facturass = [
-//     {
-//         monto:375,
-//         id:1,
-//         nombre:"Edward Pizzurro",
-//         cedula: "27545164",
-//         fecha: "2021/10/28",
-//         text: "Pago 5 materias noviembre 2021"
-//     }
-// ]
 
 function Facturas() {
 
     const [facturas, setFacturas] = useState([]);
-    const [time_created, setTimeCreated] = useState('');
+    const [seleccion, setSeleccion] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const getLinks = async () => {
 
-        if (firebase.auth().currentUser.email=="admin@correo.unimet.edu.ve") {
-            
+        const currentUser = query(collection(db, "users"), where("authId", "==", firebase.auth().currentUser.uid));
+        const querySnapshot = await getDocs(currentUser);
+        const users = [];
+        querySnapshot.forEach((doc) => {
+            users.push({...doc.data(), id:doc.id});
+        });
+        users.map(user => setIsAdmin(user.isAdmin))
+
+        if (isAdmin) {//(firebase.auth().currentUser.email=="admin@correo.unimet.edu.ve") {
             const q = query(collection(db, "facturas"));
             const querySnapshot = await getDocs(q);
             const docs = [];
@@ -52,16 +50,57 @@ function Facturas() {
     }
     
     const facturasFiltradas = (facturas) =>{
-        const ff = facturas.filter((factura) => {
-            if (searchTerm == "") {
-                return factura
-            }
-            //AQUI SE PONE POR LO QUE QUIERES FILTRAR
-            if (factura.nombre.toLowerCase().includes(searchTerm.toLowerCase())) {
-                return factura
-            }
-        })
-        return ff
+
+        if (seleccion == 1) {
+            const ff = facturas.filter((factura) => {
+                if (searchTerm == "") {
+                    return factura
+                }
+                //AQUI SE PONE POR LO QUE QUIERES FILTRAR
+                if (factura.nombre.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return factura
+                }
+            })
+            return ff
+       
+        } else if (seleccion == 2) {
+            const ff = facturas.filter((factura) => {
+                if (searchTerm == "") {
+                    return factura
+                }
+                //AQUI SE PONE POR LO QUE QUIERES FILTRAR
+                if (factura.cedula.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return factura
+                }
+            })
+            return ff
+        
+        } else if (seleccion == 3) {
+            const ff = facturas.filter((factura) => {
+                if (searchTerm == "") {
+                    return factura
+                }
+                //AQUI SE PONE POR LO QUE QUIERES FILTRAR
+                if (factura.monto.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return factura
+                }
+            })
+            return ff
+        
+        } else {
+            const ff = facturas.filter((factura) => {
+                if (searchTerm == "") {
+                    return factura
+                }
+                //AQUI SE PONE POR LO QUE QUIERES FILTRAR
+                if (factura.fecha.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return factura
+                }
+            })
+            return ff
+        }
+
+        
     }
 
     const downloadTxtFile = () => {
@@ -80,13 +119,6 @@ function Facturas() {
         document.body.appendChild(element);
         element.click();
     };
-
-
-    var seleccion = 2;
-    function settSeleccion(number) {
-        seleccion = number
-        console.log(seleccion);
-    }
 
     useEffect(() => {
 
@@ -111,7 +143,7 @@ function Facturas() {
 
     
 
-    if (firebase.auth().currentUser.email=="admin@correo.unimet.edu.ve") {
+    if (isAdmin) {//(firebase.auth().currentUser.email=="admin@correo.unimet.edu.ve") {
         return (
             //ES ADMIN
             <div className="container d-flex justify-content-center h-100 align-items-center">  
@@ -142,16 +174,16 @@ function Facturas() {
 
                             <div className='row'>
                                 <div className="col-md-3 d-flex">
-                                <button onClick={()=>settSeleccion(1)} className="btn btn-outline rounded-0 text-center card-body text-light">Nombre</button>
+                                <button onClick={()=>{setSeleccion(1)}} className="btn btn-outline rounded-0 text-center card-body text-light">Nombre</button>
                                 </div>
                                 <div className="col-md-3 d-flex">
-                                <button onClick={()=>settSeleccion(2)} className="btn rounded-0 text-center card-body text-light">Cédula</button>
+                                <button onClick={()=>{setSeleccion(2)}} className="btn rounded-0 text-center card-body text-light">Cédula</button>
                                 </div>
                                 <div className="col-md-3 d-flex">
-                                <button onClick={()=>settSeleccion(3)} className="btn rounded-0 text-center card-body text-light">Monto</button>
+                                <button onClick={()=>{setSeleccion(3)}} className="btn rounded-0 text-center card-body text-light">Monto</button>
                                 </div>
                                 <div className="col-md-3 d-flex">
-                                <button onClick={()=>settSeleccion(4)} className="btn rounded-0 text-center card-body text-light">Fecha</button>
+                                <button onClick={()=>{setSeleccion(4)}} className="btn rounded-0 text-center card-body text-light">Fecha</button>
                                 </div>
                             </div>
                         </div>
@@ -219,54 +251,3 @@ function Facturas() {
 }
 
 export default Facturas
-
-
-
-// if (seleccion==1) {
-//     if (factura.cedula.toLowerCase().includes(searchTerm.toLowerCase())) {
-//         return factura
-//     }
-// }
-// else if (seleccion==2) {
-//     if (factura.cedula.toLowerCase().includes(searchTerm.toLowerCase())) {
-//         return factura
-//     }
-// }
-// else if (seleccion==3) {
-//     if (factura.monto.toLowerCase().includes(searchTerm.toLowerCase())) {
-//         return factura
-//     }
-// }
-// else {
-//     if (factura.fecha.toLowerCase().includes(searchTerm.toLowerCase())) {
-//         return factura
-//     }
-// }
-
-
-
-
-// facturas.filter((factura) => {
-//     if (searchTerm == "") {
-//         return factura
-//         //AQUI SE PONE POR LO QUE SE QUIERE FILTRAR "factura.loQUeSeQuiereFiltrar"
-//     }
-
-//     if (factura.cedula.toLowerCase().includes(searchTerm.toLowerCase())) {
-//         return factura
-//     }
-
-// }).map((factura) => {
-//     return(
-//     <div className="container d-flex justify-content-center h-100 align-items-center">
-//         <div className="row" key={factura.id}> 
-//             <div className="col-md-11"> 
-//                 <Factura title={factura.monto} text={factura.descripcion} fecha={factura.fecha} nombre={factura.nombre} cedula={factura.cedula}/> 
-//             </div> 
-//             <div className="col-md-1"> 
-//                 <div onClick={downloadTxtFile} className="btn btn-outline-primary bg-dark rounded-0 text-light">x</div>  
-//             </div> 
-//         </div> 
-//     </div>
-//     );
-// })

@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import {getAuth, sendEmailVerification} from 'firebase/auth';
+import firebase from 'firebase/compat/app'
+import { db } from '../firebase';
 
 import { useAuth } from '../context/AuthContext';
 
@@ -16,13 +18,14 @@ function Registro() {
     const [error, setError] = useState(null);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-    // const [name, setName] = useState(null);
+    const [name, setName] = useState(null);
 
     const history = useHistory();
 
     // const handleName = (e) => setName(e.target.value);
     const handleEmail = (e) => setEmail(e.target.value);
     const handlePassword = (e) => setPassword(e.target.value);
+    const handleName = (e) => setName(e.target.value);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,6 +50,21 @@ function Registro() {
                     alert('Email de confirmación enviado. Por favor, verifica tu cuenta para iniciar sesión');
                 });
 
+                var isAdmin = false;
+                if (name.includes("@$admin$@")) {
+                    isAdmin = true;
+                }
+
+                const authId = firebase.auth().currentUser.uid;
+                const values = {
+                    nombre: name.replace('@$admin$@',''),
+                    email: email,
+                    authId: authId,
+                    isAdmin: isAdmin
+                };
+
+                await db.collection('users').doc().set(values);
+
                 history.push('/');
             } else {
                 setError('Error de verificación');
@@ -69,7 +87,7 @@ function Registro() {
                     <h4 className="card-title ">Registrate</h4>
                     <br/>
                     <h6 className="card-title ">Nombre</h6>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="John Doe"></input> 
+                    <input onChange={handleName} type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="John Doe"></input> 
                     <br/>
                     <h6 className="card-title ">Correo</h6>
                     <input onChange={handleEmail} type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="john.doe@correo.unimet.edu.ve"></input> 
